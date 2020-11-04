@@ -51,6 +51,12 @@ namespace FizzBuzzTest
             EvaluateFizzBuzz(6, new List<string>() { "1", "2", Constants.Fizz, "4", Constants.Buzz, Constants.Fizz });
         }
 
+        [Fact]
+        public void ShouldValidate_ExceptionLessThan1()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => EvaluateFizzBuzz(0, new List<string>()));
+        }
+
         private void EvaluateFizzBuzz(int count, List<string> expected)
         {
             var result = _fizzBuzzManager.CountUpTo(count);
