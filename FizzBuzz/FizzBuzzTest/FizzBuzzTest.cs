@@ -15,52 +15,29 @@ namespace FizzBuzzTest
             _fizzBuzzManager = new FizzBuzzManager();
         }
 
-        [Fact]
-        public void ShouldValidate_1()
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void ShouldValidateBasic(int count, List<string> expected)
         {
-            EvaluateFizzBuzz(1, new List<string>() { "1" });
-        }
-
-        [Fact]
-        public void ShouldValidate_2()
-        {
-            EvaluateFizzBuzz(2, new List<string>() { "1", "2" });
-        }
-
-        [Fact]
-        public void ShouldValidate_3()
-        {
-            EvaluateFizzBuzz(3, new List<string>() { "1", "2", Constants.Fizz});
-        }
-
-        [Fact]
-        public void ShouldValidate_4()
-        {
-            EvaluateFizzBuzz(4, new List<string>() { "1", "2", Constants.Fizz, "4" });
-        }
-
-        [Fact]
-        public void ShouldValidate_5()
-        {
-            EvaluateFizzBuzz(5, new List<string>() { "1", "2", Constants.Fizz, "4", Constants.Buzz });
-        }
-
-        [Fact]
-        public void ShouldValidate_6()
-        {
-            EvaluateFizzBuzz(6, new List<string>() { "1", "2", Constants.Fizz, "4", Constants.Buzz, Constants.Fizz });
+            var result = _fizzBuzzManager.CountUpTo(count);
+            Assert.True(result.SequenceEqual(expected));
         }
 
         [Fact]
         public void ShouldValidate_ExceptionLessThan1()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => EvaluateFizzBuzz(0, new List<string>()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _fizzBuzzManager.CountUpTo(0));
         }
 
-        private void EvaluateFizzBuzz(int count, List<string> expected)
+        public static IEnumerable<object[]> Data =>
+        new List<object[]>
         {
-            var result = _fizzBuzzManager.CountUpTo(count);
-            Assert.True(result.SequenceEqual(expected));
-        }
+            new object[] { 1, new List<string>() { "1" } },
+            new object[] { 2, new List<string>() { "1", "2" } },
+            new object[] { 3, new List<string>() { "1", "2", Constants.Fizz} },
+            new object[] { 4, new List<string>() { "1", "2", Constants.Fizz, "4" } },
+            new object[] { 5, new List<string>() { "1", "2", Constants.Fizz, "4", Constants.Buzz } },
+            new object[] { 6, new List<string>() { "1", "2", Constants.Fizz, "4", Constants.Buzz, Constants.Fizz } },
+        };
     }
 }
