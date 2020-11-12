@@ -1,0 +1,16 @@
+{
+  "Required": [
+    {
+      "FlagName": "l",
+      "Type": "Bool"
+    },
+    {
+      "FlagName": "p",
+      "Type": "Int"
+    },
+    {
+      "FlagName": "d",
+      "Type": "String"
+    }
+  ]
+}
