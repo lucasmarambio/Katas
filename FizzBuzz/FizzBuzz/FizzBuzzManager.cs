@@ -1,39 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace FizzBuzz
 {
     public class FizzBuzzManager
     {
-        public FizzBuzzManager()
-        {
-        }
-
         public List<string> CountUpTo(int count)
         {
-            ThrowExceptionIfOutOfRange(count);
-
-            var result = new List<string>();
-            
-            for (int i = 1; i <= count; i++)
-            {
-                var number = new Number(i);
-                result.Add(number.ToString());
-            }
-
-            return result;
+            return CountFizzBuzz(count);
         }
 
-        private void ThrowExceptionIfOutOfRange(int number)
-        {
-            if (number < 1)
-            {
-                throw new ArgumentOutOfRangeException("number", number, "Number must be greater than 0");
-            }
-            else if (number > 100)
-            {
-                throw new ArgumentOutOfRangeException("number", number, "Number must be less than 101");
-            }
-        }
+        // This approach avoids the temp variables and is more readable.
+        // Temp variables are dangerous since it allows other developers to change the behavior of the method.
+        private static List<string> CountFizzBuzz(int count) => 
+            Enumerable.Range(1, count).Select(x => NumberFactory.Create(x).ToString()).ToList();
     }
 }
